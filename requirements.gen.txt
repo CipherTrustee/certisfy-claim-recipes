@@ -1,0 +1,44 @@
+## Overview
+
+The objective is to develop a low-code application that facilitates the submission of requests via cryptographic claims. This application will feature a structured tabbed interface for managing and submitting claims, along with providing user assistance.
+
+## Functional Requirements
+
+1. **User Interface and Tabs**
+   - Implement a tabbed interface using the following structure as a guideline:
+     ```html
+     <v-tabs v-model="tab" color="primary">
+         <v-tab value="one">Item One</v-tab>
+         <v-tab value="two">Item Two</v-tab>
+         <v-tab value="three">Item Three</v-tab>
+     </v-tabs>
+
+     <v-divider></v-divider>
+
+     <v-tabs-window v-model="tab">
+         <v-tabs-window-item value="one">
+             <v-sheet class="pa-5" color="purple">One</v-sheet>
+         </v-tabs-window-item>
+         <v-tabs-window-item value="two">
+             <v-sheet class="pa-5" color="orange">Two</v-sheet>
+         </v-tabs-window-item>
+         <v-tabs-window-item value="three">
+             <v-sheet class="pa-5" color="brown">Three</v-sheet>
+         </v-tabs-window-item>
+     </v-tabs-window>
+     ```
+   - Ensure the tabs are visible and interactive, displaying the related views when clicked.
+   - Build the application as a low-code app and open it in a low-code editor to ensure compatibility and easy editing.
+
+2. **PPBV Tab**
+   - Include a tab labeled "PPBV" in the interface.
+   - This tab should contain a text area for users to input claim data.
+   - A "Submit" button must activate the `executeClaimRequest` function.
+   - Based on the submission outcome, the following should appear below the claim form:
+     1. A confirmation message for successful submissions or an error message if needed.
+     2. A view showing existing agreements if the request involves querying.
+     3. A confirmation or error display for requests aiming to terminate agreements.
+
+3. **Help Tab**
+   - Provide a tab labeled "Help".
+   - This tab should offer content to aid users in navigating and effectively utilizing the application's features.

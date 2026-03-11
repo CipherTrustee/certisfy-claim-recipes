@@ -1,0 +1,20 @@
+[Unit]
+Description=Certisfy Claim Recipes
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/solvent/solvent-apps/solvent/work/certisfy-claim-recipes
+
+# 1. Add the environment variable here
+Environment=DEBUG=certisfy-claim-recipes:*
+
+# 2. Point to the NPM binary instead of Node (to ensure it uses your package.json logic)
+ExecStart=/home/ubuntu/solvent/solvent-apps/solvent/work/certisfy-claim-recipes/start.sh
+
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

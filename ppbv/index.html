@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+ <html solvent_object_id="9b52ced35215a06faaaa23ea76b9c095"><head><script src="/ide-proxy/com.codesolvent.solvent.platform.static-asset/lowcodr/js-object-merger.js"></script>
+
+<style type="text/css">
+    [v-cloak] {
+      display: none;
+    }
+</style>  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/vuetify@3.x/dist/vuetify.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/vuetify@3.x/dist/vuetify.min.js"></script>
+<title>Cryptographic Implementation Of Exclusivity Agreements</title>
+
+<script> 
+function importAppModule(modulePath){return import(modulePath)};
+</script><script>
+      var solventAppErrorHandler = null;
+      if((new URL(window.location.href).searchParams.get("radkit_composer_viewport_id"))){
+
+        solventAppErrorHandler = (error, vm, info) => {
+              // error: error trace
+              // vm: component in which error occured
+              // info: Vue specific error information such as lifecycle hooks, events etc.
+
+              (window.opener?window.opener:(window.parent?window.parent:window)).postMessage(Object.assign({},{
+                  "message":"radkit.driver.objectEditorUIEvent",
+                  "editorMsg":"log-app-message",
+                  "args":{
+                    "log":(typeof error == "string"?{"message":error}:error),
+                    "radkit_composer_viewport_id":(new URL(window.location.href).searchParams.get("radkit_composer_viewport_id"))
+                  }
+              }));
+        };
+    }
+</script></head><body><div id="app" data-role="mount-element" v-cloak solvent_object_id="dc7d92f9cc759cbdb71537750715a7b5"><v-app solvent_object_description="Main Vuetify App Component" solvent_object_id="el-hqe3ozkjgt8qf"><v-main solvent_object_description="Main Content Area" solvent_object_id="el-51m6bzxi2pk1o"><v-container fluid solvent_object_description="Container for Conditional Views" solvent_object_id="el-r0ygivih7fk0r"><v-tabs color="primary" v-model="currentTab" solvent_object_description="Tabs Container" solvent_object_id="el-jxjvmhk0hfc4b"><v-tab value="ppbv" href="#id_ba15de809f3c4810b764a0449f65b47a" solvent_object_description="PPBV Tab" solvent_object_id="el-shrz1zu4uvqae">PPBV</v-tab><v-tab value="help" href="#id_dce96587e73f48e39b4459353769a63a" solvent_object_description="Help Tab" solvent_object_id="el-brew1xfp6ms9h">Help</v-tab></v-tabs><v-divider solvent_object_id="el-qbufx4ipiunus"></v-divider><v-tabs-window v-model="currentTab" solvent_object_description="Tabs Window Container" solvent_object_id="el-71zi4j62opmai"><v-tabs-window-item value="ppbv" solvent_object_description="PPBV Tab Content" solvent_object_id="el-ephoabsz0hpyu"><v-container solvent_object_description="Container for PPBV Tab Content" solvent_object_id="el-af8bhq46dktcq"><v-form solvent_object_description="Form for Claim Submission" solvent_object_id="el-dwzvodw2949mn"><v-textarea label="Enter Claim Data" v-model="claimData" solvent_object_description="Textarea for entering claim data" solvent_object_id="el-lgo6gs9778l1h"></v-textarea><v-card-actions solvent_object_description="Actions for Claim Form" solvent_object_id="el-fttvy6mmarzem"><v-spacer solvent_object_id="94203f4e16aad7a4ffd6cca2759b76a8"></v-spacer><v-btn v-on:click="submitClaim" solvent_object_description="Button to submit claim data" solvent_object_id="el-6c76zo9objvaz">Submit</v-btn></v-card-actions></v-form></v-container><v-container v-if="response" solvent_object_description="Confirmation View" solvent_object_id="el-vqq8tlb6lsz5e"><span v-if="response.error">
+  <p>
+  	{{response.error}}
+  </p>
+</span>
+<span v-else-if="response.action == 'ppbv-create-agreement' ">
+  <p>
+    Agreement created, <b>Id</b>: {{response.agreement_id}}
+  </p>
+</span>
+<span v-else-if="response.action == 'ppbv-lookup-agreement' ">
+  <p v-if="response.partyCount">
+    <b>Number of parties to agreement</b>: {{response.partyCount}}
+  </p>
+  <ol>
+    <li v-for="row in response.rows">
+      <p>
+        <b>Agreement Id</b>:{{row.agreement_id}}
+      </p>
+      <p v-if="row.agreement_type">
+        <b>Agreement Type</b>:{{row.agreement_type}}
+      </p>
+      <p v-if="row.statement">
+        <b>Agreement Statement</b>:{{row.statement}}
+      </p>
+    </li>
+  </ol>
+</span>
+<span v-else-if="response.action == 'ppbv-terminate-agreement' ">
+  {{response.status == 'pending'?response.message:'Agreement terminated'}}
+</span></v-container></v-tabs-window-item><v-tabs-window-item value="help" solvent_object_description="Help Tab Content" solvent_object_id="el-izhlwlekl8f12"><v-container solvent_object_description="Help Content View" solvent_object_id="el-piu6s6xjdo1kk"><p>
+If you are testing out PPBV with the demo certificates, you will need to
+create new identity anchor certificates. You can create each certificate by
+creating a document with a unique (uuid) id element (ex NATIONAL_ID) value. 
+</p>
+<br>
+<p>
+The number of unique id anchor certificates will determine the maximum number of parties that
+can be part of an agreement.
+</p>
+<br>
+<p>
+  Use the demo trust anchor certificate to issue your new certificates.
+</p>
+<br>
+<p>
+  You will then use these certificates to make your ppbv claims. <br><br>
+  <i>
+  In general, id anchor certificates should only be used for id anchoring, ie not for making claims. But it is ok to use the demo ones
+  to make claims.
+  </i>
+</p>
+<br>
+<p>
+There are three actions you can perform with PPBV. You must create claims for each action
+before you can perform the action. All claims must be created for private use.
+</p>
+<br>
+<ol>
+  <li><h2>Create an agreement</h2>
+  	<p>
+       Add a field <b>pki-action</b>, set value to <b>ppbv-create-agreement</b>.
+    </p>
+    <br>
+    <p>
+       Optionally, add a field <b>agreement-type</b>, set value to an appropriate type.
+       Agreement types are publicly defined and shared, meaning there will be a generally
+       agreed upon list of agreement type names, this will ensure that lookups are performed
+       against well known agreement type names to avoid evasiveness.
+    </p>
+    <br>
+    <p>
+      PPBV agreement type list is maintained <a href="https://github.com/CipherTrustee/Certisfy-Claim-Recipes/ppbv/agreement-types.txt" target="_blank">here</a>.
+    </p>
+    <br>
+    <p>
+       Optionally, add a field <b>statement</b>, this can be any additional information that needs to be associated with the claim.
+    </p>
+    <br>
+    <p>
+      To submit an agreement, all parties must give their claim to a chosen <i>leader</i>,
+      this party will include those claims in their own agreement claim as additional fields.
+    <p>
+    <br>
+    <p>
+      For instance an agreement with three parties will be given to one of the three parties by the
+      other two, the <i>leader</i> will then include those claims in their own agreement claim
+      with field names such as <i>party-2</i>,<i>party-3</i>. 
+    </p>
+  </li>
+  <li><h2>Lookup agreements</h2>
+  	<p>
+      Add a field <b>pki-action</b>, set value to <b>ppbv-lookup-agreement</b>.
+    </p>
+    <br>
+    <p>
+      A look up can optionally have a filter field of either <b>agreement-type</b> or
+      <b>agreement-id</b>. A lookup without a filter will pull all agreements
+      associated with the lookup claim owner.
+    </p>
+    <br>
+    <p>
+      When <b>agreement-type</b> filter is included, its value must be set to one of
+      the well known values defined in the agreement type <a href="https://github.com/CipherTrustee/Certisfy-Claim-Recipes/ppbv/agreement-types.txt" target="_blank">list</a>.
+    </p>
+    <br>
+    <p>
+      Agreement type lookups are generally given to others so they can ensure you are not
+      already party to a certain agreement type.
+    <p>
+    <br>
+    <p>
+      A lookup with a filter for <b>agreement-id</b> is a way to prove to others
+      that you are already party to a certain agreement.
+    </p>    
+  </li>
+  <li><h2>Terminate an agreement</h2>
+    <p>
+      Add a field <b>pki-action</b>, set value to <b>ppbv-terminate-agreement</b>.
+    </p>
+    <p>
+      An agreement can only be terminated once all parties to the agreement submit
+      a termination claim.
+    </p>
+  </li>
+</ol></v-container></v-tabs-window-item></v-tabs-window></v-container></v-main></v-app></div>
+<!--before app create include-->
+
+
+
+<script >
+
+var SolventVueJSversion ='3';
+var SolventVueMainAppMountElementId ='app';
+
+ var SolventVueMainAppPublicInstance=null;
+
+var SolventVueMainApp = null;
+
+var SolventVueMainAppConfig={"el":"#app","vuetify":(typeof SolventVueJSversion != 'undefined' && SolventVueJSversion != null && SolventVueJSversion != '2')?null:new Vuetify()
+,"data":function() {
+          return {
+            currentTab: 'ppbv',
+            claimData: '',
+            viewState: '',
+            response:null,
+          };
+        },"methods":{"submitClaim":function() 
+{
+   window.appModule.executeClaimRequest(this.claimData).then((resp)=>{
+   		this.response = resp;
+   });
+}}};
+
+//before app mount include
+
+
+
+
+var isSolventComposerMode = (new URL(window.location.href).searchParams.get("radkit_composer_on") == "true");
+var isSolventLowcodrEmbeddedUIMode = (new URL(window.location.href).searchParams.get("radkit_composer_headlessMode") != "true");
+var SolventLowcodrAppLoader = function(){
+try
+{
+    importAppModule("./PPBVApp-module.js?ts="+(new Date().getTime())).then((appModule)=>{
+        window["appModule"] = appModule.default?appModule.default:appModule;   
+
+        
+    
+   try
+   {
+        if(SolventVueJSversion && SolventVueJSversion != '2'){
+            SolventVueMainApp = Vue.createApp(SolventVueMainAppConfig);
+            SolventVueMainApp.use(Vuetify.createVuetify());
+
+            if(typeof SolventRadkitComposerNodeFrameDef == "object"){//set if in composer mode
+                SolventVueMainApp.component("solvent-radkit-composer-node-frame",SolventRadkitComposerNodeFrameDef.vuejs);
+            }
+          
+            if(typeof solventAppErrorHandler != "undefined" && solventAppErrorHandler){
+              	SolventVueMainApp.config.errorHandler = solventAppErrorHandler;
+                SolventVueMainApp.config.warnHandler = solventAppErrorHandler;
+            }
+          
+            SolventVueMainAppPublicInstance = SolventVueMainApp.mount("#"+SolventVueMainAppMountElementId);
+        }
+        else
+        {
+            if(typeof SolventRadkitComposerNodeFrameDef == "object"){//set if in composer mode
+                Vue.component("solvent-radkit-composer-node-frame",SolventRadkitComposerNodeFrameDef.vuejs);
+            }
+          
+            if(typeof solventAppErrorHandler != "undefined" && solventAppErrorHandler){
+              	Vue.config.errorHandler = solventAppErrorHandler;
+                Vue.config.warnHandler = solventAppErrorHandler;
+            }
+          
+            SolventVueMainApp = new Vue(SolventVueMainAppConfig);
+        }
+    }
+    catch(error){
+        if((new URL(window.location.href).searchParams.get("radkit_composer_viewport_id"))){
+            (window.parent?window.parent:window).postMessage(Object.assign({},{
+                "message":"radkit.driver.objectEditorUIEvent",
+                "editorMsg":"log-app-message",
+                "args":{
+                  "log":error,
+                  "radkit_composer_viewport_id":(new URL(window.location.href).searchParams.get("radkit_composer_viewport_id"))
+                }
+             }));
+    	}
+    }  
+    });
+}
+catch(error){
+    if((new URL(window.location.href).searchParams.get("radkit_composer_viewport_id"))){
+        (window.opener?window.opener:(window.parent?window.parent:window)).postMessage(Object.assign({},{
+          "message":"radkit.driver.objectEditorUIEvent",
+          "editorMsg":"log-app-message",
+          "args":{
+            "log":error,
+            "radkit_composer_viewport_id":(new URL(window.location.href).searchParams.get("radkit_composer_viewport_id"))
+          }
+        }));
+    }
+}
+if(typeof SolventVueMainAppPublicInstance != "undefined" && SolventVueMainAppPublicInstance != null)
+	SolventVueMainAppPublicInstance.appModule = appModule;
+else
+if(typeof SolventVueMainApp != "undefined" && SolventVueMainApp != null)
+	SolventVueMainApp.appModule = appModule;
+};
+if(isSolventLowcodrEmbeddedUIMode || !isSolventComposerMode)
+	window.addEventListener('load', SolventLowcodrAppLoader);
+
+//after mount app include
+
+</script>
+<!--after create app include--><script>const App=SolventVueMainAppConfig;
+</script>
+</body></html>
