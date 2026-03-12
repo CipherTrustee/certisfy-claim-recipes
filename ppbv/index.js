@@ -41,7 +41,7 @@ async function validateClaim(claim,action,ttl){
       const verification = await certisfy.verifyClaim(claim, "ppbv.certisfy.com", claim.trustChain);
   
       //for ppbv we'll also allow demo trust anchor certificates
-      if(!certisfy.isClaimTrustworthy(verification) && (certisfy.buildErrorList(verification).length >1 || !verification.certChainVerification || !verification.certChainVerification.chain.find(e=>e.finger_print == certisfy.demoTrustAnchorFingerprint)))
+      if(!certisfy.isClaimTrustworthy(verification) && (!verification.certChainVerification || certisfy.buildErrorList(verification).length >1 || !verification.certChainVerification.chain.find(e=>e.finger_print == certisfy.demoTrustAnchorFingerprint)))
         	return {error:`Claim is not trustworthy.`,claim,verification};
   
       const verificationResult = certisfy.getVerificationResult(verification,["pki-action"]);
