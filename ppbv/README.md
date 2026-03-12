@@ -38,7 +38,7 @@ For the demo identity anchor certificates, you can use random UUID for your iden
         The use of agreement type also offers some mitigation against this.
 
   3. Submit the claim to ppbv
-      - no agreement claim can be older than 15 minutes.
+      - no agreement claim can be older than 60 minutes.
       - ppbv will extract crypto id for each claim and add it to db table
       - create a uuid for agreement id and add it to db table
 
@@ -58,7 +58,7 @@ parties.
         it is assumed to be a lookup by the owner of the claim and will just list all 
         agreements they are party to.
       - lookup approval claim must be short-lived so it isn't abused.
-        ppbv will only accept lookup approval claims that are no older than 5 minutes.
+        ppbv will only accept lookup approval claims that are no older than 60 minutes.
 
   2. Give lookup approval claims to others to look up agreements  
       - lookup can be restricted to an `agreement-id` or `agreement-type`.
@@ -76,6 +76,6 @@ Parties can mutually agree to terminate an agreement.
       - field `agreement-id` is the id of the agreement to terminate.
       - termination request claim must be short-lived so it isn't abused.
         ppbv will only execute termination request claims if all parties to an 
-        agreement submit a request within a 30-minute time window.
+        agreement submit a request within a 60-minute time window.
       - *Break up confirmed!*
       
