@@ -19,14 +19,17 @@ agreements. Use the demo trust anchor certificate for issuing trustworthy demo c
 
 For the demo identity anchor certificates, you can use random UUID for your identity anchor element value.
 
+All claims for ppbv must be for private use.
+The receiver id for all claims must be `ppbv.certisfy.com`
+You must attach trust chain to all claims.
+
 ## Part I: Create And Submit Agreements
 
   1. Create a claim for agreement
-      - receiver id must be ppbv.certisfy.com
-      - optionally add field `statement`...I am getting into a relationship with Bob.  
+      - optionally add field `statement`...I am getting into a relationship with Bob. 
+      	You can use Certisfy nerd tools to encrypt this statement if it needs to be private.  
       - optionally add field `agreement-type` (for instance romantic...oh my.)
       - claims cannot be deleted once sumitted so use validity period judiciously to control life time.
-      - claim must be for private use.
 
   2. One member of the agreement must collect all other claims and include them as additional fields in their own agreement claim.
       - It doesn't matter what the field names are for included claims.  

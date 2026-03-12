@@ -6,17 +6,17 @@
 4. You may not redistribute it with or without modifications.      
 **************************************************************************************************************/
     /*
-	import * as asn1js from './asn1js.js';
-    import * as pkijs from './pkijs.es.js';
-    import * as hmacUtil from './hmac-util.js';
-    import * as pvtsutils from './pvtsutils.js';
+	import * as asn1js from './crypto/asn1js.js';
+    import * as pkijs from './crypto/pkijs.es.js';
+    import * as hmacUtil from './crypto/hmac-util.js';
+    import * as pvtsutils from './crypto/pvtsutils.js';
     */
     /************************************For nodejs environment**********************************************/
     import * as pkijs from 'pkijs';
     import * as asn1js from 'asn1js';
 
-    import * as hmacUtil from './hmac-util.js';
-    import * as pvtsutils from './pvtsutils.js';
+    import * as hmacUtil from './crypto/hmac-util.js';
+    import * as pvtsutils from './crypto/pvtsutils.js';
 
 	//import crypto from 'node:crypto';
     //Get the crypto extension
