@@ -5,12 +5,12 @@
 3. For verification of Certisfy claims, you are free to use it for both personal and commercial needs.
 4. You may not redistribute it with or without modifications.      
 **************************************************************************************************************/
-    /*
+	/*
 	import * as asn1js from './crypto/asn1js.js';
     import * as pkijs from './crypto/pkijs.es.js';
     import * as hmacUtil from './crypto/hmac-util.js';
     import * as pvtsutils from './crypto/pvtsutils.js';
-    */
+	*/
     /************************************For nodejs environment**********************************************/
     import * as pkijs from 'pkijs';
     import * as asn1js from 'asn1js';
@@ -2856,9 +2856,10 @@
     }
 
     function isClaimTrustworthy(docVerificationContext){
-		if(!docVerificationContext || !docVerificationContext.certChainVerification)
-          return false;
       
+      	if(!docVerificationContext || !docVerificationContext.certChainVerification)
+          return false;
+
         if(docVerificationContext.isEmbedSticker)
             return (docVerificationContext.certChainVerification.certificateVerified && 
                     (!docVerificationContext.sigStatusVerification || docVerificationContext.sigStatusVerification == "good") &&
