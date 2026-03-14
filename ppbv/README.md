@@ -1,6 +1,6 @@
 ### Cryptographic Implementation Of Exclusivity Agreements
 
-This [Certisfy claims recipe](https://github.com/CipherTrustee/Certisfy-Claim-Recipes) (call it Pinky-Promise-But-Verify (ppbv)) allows multi-party exclusivity agreements,
+This [Certisfy claims recipe](https://github.com/CipherTrustee/certisfy-claim-recipes) (call it Pinky-Promise-But-Verify (ppbv)) allows multi-party exclusivity agreements,
 where one party can acquire approval from another party to lookup the other party in order to acertain that
 they are not already comitted to a similar agreement or that they are in fact party to a certain type of
 agreement.
