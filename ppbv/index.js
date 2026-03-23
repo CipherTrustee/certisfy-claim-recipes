@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import * as certisfy from '../public/javascripts/certisfy/certisfy.js';
+import {createSDK} from '../public/javascripts/certisfy/src/loader.js';
 
 // express = require('express');
 import express from 'express'; 
@@ -16,10 +16,7 @@ const pool = new Pool({
 });
 var router = express.Router();
 
-
-certisfy.SET_SDK_MODE(true); 
-certisfy.loadTrustRoots();
-
+const certisfySDK = await createSDK();
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {  
@@ -37,13 +34,13 @@ router.get('/PPBVApp-module.js', (req, res) => {
 });
 
 async function validateClaim(claim,action,ttl){
-      const verification = await certisfy.verifyClaim(claim, "ppbv.certisfy.com", claim.trustChain);
+      const verification = await certisfySDK.verifier.verifyClaim(claim, "ppbv.certisfy.com", claim.trustChain);
   
       //for ppbv we'll also allow demo trust anchor certificates
-      if(!certisfy.isClaimTrustworthy(verification) && (!verification.certChainVerification || certisfy.buildErrorList(verification).length >1 || !verification.certChainVerification.chain.find(e=>e.finger_print == certisfy.demoTrustAnchorFingerprint)))
+      if(!certisfySDK.verifier.isClaimTrustworthy(verification) && (!verification.certChainVerification || certisfySDK​.verifier.buildErrorList(verification).length >1 || !verification.certChainVerification.chain.find(e=>e.finger_print == certisfySDK.getConfig().demoTrustAnchorFingerprint)))
         	return {error:`Claim is not trustworthy.`,claim,verification};
   
-      const verificationResult = certisfy.getVerificationResult(verification,["pki-action"]);
+      const verificationResult = certisfySDK.verifier.getVerificationResult(verification,["pki-action"]);
   	  if(verificationResult.ownerIdentityInformation.personaType != "private")  
   			return {error:`Claim must be created for private use.`,claim,verification,verificationResult};
   
@@ -98,7 +95,7 @@ router.post('/controller', async function(req, res, next) {
       if(verification.error)
           return res.status(200).json(verification);
 
-      let verificationResult = certisfy.getVerificationResult(verification,["pki-action"]);
+      let verificationResult = certisfySDK.verifier.getVerificationResult(verification,["pki-action"]);
       const action = verificationResult.unverifiedInformation.fields.find(f=>f.name == 'pki-action').value;
     
       if(action == "ppbv-create-agreement"){
@@ -109,19 +106,19 @@ router.post('/controller', async function(req, res, next) {
            const agreementType = verificationResult.unverifiedInformation.fields.find(f=>f.name == 'agreement-type')?verificationResult.unverifiedInformation.fields.find(f=>f.name == 'agreement-type').value:null;
         
            for(const field of verificationResult.unverifiedInformation.fields){
-               let claimObject = certisfy.textToClaimObject(field.value)
+               let claimObject = certisfySDK.helperUtil.textToClaimObject(field.value)
                if(claimObject){
                  	if(parties.slice(1).find(p=>p.verificationResult.ownerIdentityInformation.id == verificationResult.ownerIdentityInformation.id))
                       	return res.status(200).json({error:`There cannot be party duplicates to an agreement.`,claim:claimObject});
                  
                     //extract claim plain field list that is attached top-most enclosing 'claim'
-                    claimObject = await certisfy.extractAndAttachPlainFields(claimObject,claim.plainFields);
+                    claimObject = await certisfySDK.claimData.extractAndAttachPlainFields(claimObject,claim.plainFields);
                  
                     verification = await validateClaim(claimObject,action,CLAIM_TTL);
                     if(verification.error)
                       return res.status(200).json(verification);
                  
-                    const partyVerificationResult = certisfy.getVerificationResult(verification)
+                    const partyVerificationResult = certisfySDK.verifier.getVerificationResult(verification)
                     const partyAgreementType = partyVerificationResult.unverifiedInformation.fields.find(f=>f.name == 'agreement-type')?partyVerificationResult.unverifiedInformation.fields.find(f=>f.name == 'agreement-type').value:null;
 
                  	if(agreementType != partyAgreementType)
@@ -139,7 +136,7 @@ router.post('/controller', async function(req, res, next) {
           //determine expiration date of agreement, it will be first expired claim
           let agreementExpiration;
           for(const party of parties){
-              let expiryField = certisfy.getVerifiedCertificateField("pki-expiration-time",party.verification.fieldVerification.fields,true);
+              let expiryField = certisfySDK.claimData.getVerifiedCertificateField("pki-expiration-time",party.verification.fieldVerification.fields,true);
               let expireDateText = expiryField["pki-expiration-time"].substring(0,expiryField["pki-expiration-time"].indexOf(" ")).trim();
               let expireTimeText = expiryField["pki-expiration-time"].substring(expiryField["pki-expiration-time"].indexOf(" ")).trim();
               let expireDateTime = new Date();
