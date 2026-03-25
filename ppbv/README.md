@@ -26,14 +26,15 @@ You must attach trust chain to all claims.
 ## Part I: Create And Submit Agreements
 
   1. Create a claim for agreement
+  	  - add field `pki-action` with value `ppbv-create-agreement`.
       - optionally add field `statement`...I am getting into a relationship with Bob. 
       	You can use Certisfy nerd tools to encrypt this statement if it needs to be private.  
-      - optionally add field `agreement-type` (for instance romantic...oh my.)
+      - optionally add field `agreement-type` (for instance romantic...oh my.). 
+        A parties to an agreement must have the same `agreement-type` specified in their claims.
       - claims cannot be deleted once sumitted so use validity period judiciously to control life time.
 
   2. One member of the agreement must collect all other claims and include them as additional fields in their own agreement claim.
       - It doesn't matter what the field names are for included claims.  
-      - add field `pki-action` with value `ppbv-create-agreement`  
       - *Note*: It is possible for the person collecting your claim to give it to someone else to sign you up for an
         agreement that you did not intend to be party to, fun things to consider :) 
         
