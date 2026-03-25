@@ -30,7 +30,7 @@ You must attach trust chain to all claims.
       - optionally add field `statement`...I am getting into a relationship with Bob. 
       	You can use Certisfy nerd tools to encrypt this statement if it needs to be private.  
       - optionally add field `agreement-type` (for instance romantic...oh my.). 
-        A parties to an agreement must have the same `agreement-type` specified in their claims.
+        All parties to an agreement must have the same `agreement-type` value specified in their claims.
       - claims cannot be deleted once sumitted so use validity period judiciously to control life time.
 
   2. One member of the agreement must collect all other claims and include them as additional fields in their own agreement claim.
