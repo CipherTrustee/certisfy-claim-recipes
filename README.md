@@ -12,5 +12,6 @@ that can be used to build recipes/procedures that solve trust related problems.
 5. Vouch For Developer (Or any role really) Credibility. [Here](https://certisfy.com/app#pntwt1) is one example, other implementation approaches are possible.
 6. [Private Messaging](https://blog.certisfy.com/2026/04/private-messaging-in-public-forums.html)
 7. [Trusted URLs](https://blog.certisfy.com/2026/04/trusted-urls-via-cryptographic.html)
+8. [Build Your Own Trust Chain](https://blog.certisfy.com/2026/04/build-your-own-trust-chain.html)
 
 Also feel free to make suggestions for trust related problems to add to this list.
